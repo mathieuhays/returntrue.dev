@@ -4,213 +4,146 @@
     <meta charset="utf-8">
     <title>Return True</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="https://www.returntrue.dev">
     <style>
-        :root {
-            --primary: #00ADB5;
-            --primary-contrast: #EEE;
-            --secondary: #222831;
-            --content-background: #FFF;
-            --content-color: #000;
-            --content-border: #000;
-            --table-border: rgba(0, 0, 0, .1);
+    @font-face {
+        font-family: 'Cutive Mono';
+        font-display: swap;
+        src: url('Cutive_Mono/CutiveMono-Regular.ttf') format('truetype');
+    }
+    @font-face {
+        font-family: 'Rubik';
+        font-display: swap;
+        src: url('Rubik_Mono_One/RubikMonoOne-Regular.ttf') format('truetype');
+    }
+    body {
+        background: #131214;
+        color: #fefdff;
+        font-family: 'Cutive Mono', monospace;
+        margin: 0;
+    }
+    .logo {
+        font-family: 'Rubik', sans-serif;
+    }
+    .mini {
+        font-size: .687em;
+        text-transform: uppercase;
+    }
+    .canvas {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+    }
+    .outer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        height: 100vh;
+        width: 100%;
+    }
+    .container {
+        flex-grow: 1;
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        padding: 1rem;
+    }
+    .content {
+        background: rgba(0, 0, 0, .8);
+        box-shadow: 0 0 1.5rem rgba(0, 0, 0, .8);
+        padding: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+        width: calc(100% - 3rem);
+        font-size: .9rem;
+        line-height: 1.3;
+    }
+    .content strong {
+        font-family: 'Rubik', sans-serif;
+        font-size: .9em;
+    }
+    .content span {
+        background: #18e7d2;
+        color: #000;
+        padding: .05rem;
+    }
+    .footer {
+        padding: .5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: .5rem 2rem;
+        color: rgba(255, 255, 255, .5);
+    }
+    ::selection {
+        background: #18e7d2;
+        color: #000;
+    }
+    @media (min-width:500px) {
+        .outer {
+            justify-content: center;
         }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --secondary: #222;
-                --content-background: #222831;
-                --content-color: #EEE;
-                --table-border: rgba(255, 255, 255, .1);
-            }
-        }
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-        body {
-            background: var(--secondary);
-            margin: 0;
-            font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-        }
-        ::selection {
-            background: var(--primary);
-            color: var(--primary-contrast);
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(1rem, 3vw, 3rem);
-            height: calc(100vh - 30px);
-            align-items: stretch;
-            margin: 15px;
-            width: calc(100% - 30px);
-        }
-        .logo {
-            background: var(--primary);
-            color: var(--primary-contrast);
-            border-radius: .05em;
-            display: flex;
+        .header {
             flex-direction: row;
-            font-size: clamp(1rem, 9vw, 47px);
-            font-weight: bold;
-            text-align: center;
-            padding: 1rem;
-            line-height: 1;
-            text-transform: uppercase;
-            cursor: default;
+            align-items: center;
+            justify-content: space-between;
         }
-        @keyframes wiggle {
-            0% {transform: rotate(2deg);}
-            100% {transform: rotate(-2deg);}
-        }
-        .logo span {
-            --shadow-size: .05em;
-            --shadow-intensity: .2;
-            text-shadow: var(--shadow-size) var(--shadow-size) .02em rgba(0, 0, 0, var(--shadow-intensity)), calc(var(--shadow-size) * 2) calc(var(--shadow-size) * 2) .02em rgba(0, 0, 0, var(--shadow-intensity));
-            transition: text-shadow .5s;
-            display: inline-block;
-            animation: wiggle 2.5s infinite alternate;
-        }
-        .logo span:hover {
-            --shadow-size: .075em;
-            --shadow-intensity: .15;
-        }
-        .logo span:nth-child(odd) {
-            transform: rotate(2deg);
-        }
-        .logo span:nth-child(even) {
-            transform: rotate(-2deg);
+        .side {
+            text-align: right;
         }
         .content {
-            background: var(--content-background);
-            color: var(--content-color);
-            border: 1px solid var(--content-border);
-            border-radius: .25em;
-            flex-grow: 1;
-            padding: clamp(1rem, 5vw, 3rem);
-            display: flex;
-            flex-direction: column;
-            overflow: scroll;
-        }
-        .mentions {
-            flex-shrink: 1;
-            line-height: 1.4;
-            font-size: .875rem;
-            margin-top: 5em;
-        }
-        .mentions-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .mentions-table th,
-        .mentions-table td {
-            text-align: left;
-            padding: .15em;
-            border-bottom: 1px solid var(--table-border);
-        }
-        @media (max-width: 800px) {
-            .mentions-table,
-            .mentions-table tbody,
-            .mentions-table caption,
-            .mentions-table tr,
-            .mentions-table th,
-            .mentions-table td {
-                display: block;
-                border-bottom: 0;
-                width: 100%;
-            }
-            .mentions-table th {
-                margin-top: .5em;
-                padding-top: .5em;
-                border-top: 1px solid var(--table-border);
-            }
-        }
-        .mentions-table caption {
-            font-weight: bold;
             font-size: 1.25rem;
-            margin-bottom: .5rem;
-            text-align: left;
+            line-height: 1.5;
         }
-        .intro {
-            flex-grow: 1;
-            line-height: 1.4;
-            font-size: clamp(1.2em, 3vw, 2rem);
+        .footer {
+            flex-direction: row;
+            align-items: stretch;
         }
-        @media (min-height: 220px) and (min-width: 430px) {
-            .container {
-                flex-direction: row;
-            }
-            .logo {
-                flex-direction: column;
-                font-size: clamp(1rem, 7vh, 200px);
-            }
-        }
+    }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="logo">
-            <span>R</span>
-            <span>e</span>
-            <span>t</span>
-            <span>u</span>
-            <span>r</span>
-            <span>n</span>
-            <span>&nbsp;</span>
-            <span>T</span>
-            <span>r</span>
-            <span>u</span>
-            <span>e</span>
+    <div class="outer">
+        <header class="header">
+            <h1 class="logo" style="margin:0;line-height: 1">Return True</h1>
+            <div class="mini side">
+                Full stack developer - WordPress<br>
+                42 avenue de la Perrière, 56100 Lorient
+            </div>
         </header>
-        <div class="content">
-            <main class="intro">
+        <main class="container">
+            <article class="content">
                 <p style="margin-top: 0;">
-                    Bonjour!
+                    <span>Bonjour!</span>
                 </p>
                 <p>
-                    Je suis Mathieu, un développeur WordPress passionné et
-                    expérimenté basé &agrave; Lorient en France. J'ai un amour
+                    <span>Je suis Mathieu, un développeur WordPress <strong>passionné</strong> et
+                    expérimenté basé &agrave; <strong>Lorient</strong> en France. J'ai un amour
                     profond pour le codage et un œil attentif pour le design,
-                    je me spécialise dans la création de sites Web WordPress sur
-                    mesure et performants qui non seulement ont un aspect
+                    je me spécialise dans la création de sites Web <strong>WordPress</strong> sur
+                    mesure et <strong>performants</strong> qui non seulement ont un aspect
                     superbe, mais offrant également une expérience utilisateur
-                    exceptionnelle.
+                    exceptionnelle.</span>
                 </p>
-            </main>
-            <footer class="mentions">
-                <table class="mentions-table">
-                    <caption>Mentions l&eacute;gales</caption>
-                    <tbody>
-                        <tr>
-                            <th>Dénomination:</th>
-                            <td>Return True</td>
-                        </tr>
-                        <tr>
-                            <th>Forme Juridique:</th>
-                            <td>Société à responsabilité limitée (Société à associé unique)</td>
-                        </tr>
-                        <tr>
-                            <th>Numéro de SIRET:</th>
-                            <td>849 446 604 00019</td>
-                        </tr>
-                        <tr>
-                            <th>Numéro de TVA:</th>
-                            <td>FR 56849446604</td>
-                        </tr>
-                        <tr>
-                            <th>Capital Social:</th>
-                            <td>1000,00 Euros</td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td>Immatriculé au RCS de Lorient</td>
-                        </tr>
-                        <tr>
-                            <th>Siège Social:</th>
-                            <td>42 avenue de la Perrière, 56100 Lorient</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </footer>
-        </div>
+            </article>
+        </main>
+        <footer class="footer mini">
+            <span>SARL</span>
+            <span>SIRET: 849 446 604 00019</span>
+            <span>Capital Social: 1000,00 Euros</span>
+            <span>Numéro de TVA: FR 56849446604</span>
+            <span>Immatriculé au RCS de Lorient</span>
+        </footer>
     </div>
+    <canvas class="canvas" id="canvas"></canvas>
+    <script src="animation.min.js" defer async></script>
 </body>
 </html>

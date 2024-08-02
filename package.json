@@ -1,0 +1,17 @@
+{
+  "name": "returntrue.dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "animation.js",
+  "scripts": {
+    "minify": "./node_modules/.bin/uglifyjs animation.js -o animation.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mathieuhays/returntrue.dev.git"
+  },
+  "private": true,
+  "devDependencies": {
+    "uglify-js": "^3.19.1"
+  }
+}
