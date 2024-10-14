@@ -9,7 +9,7 @@
     <meta name="description" content="D&eacute;veloppeur WordPress depuis 2013 localis&eacute; &agrave; Lorient dans le Morbihan.">
     <style>
     body {
-        background: #131214;
+        background: #000;
         color: #fefdff;
         font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
         margin: 0;
@@ -31,6 +31,11 @@
         position: fixed;
         inset: 0;
         z-index: -1;
+        transition: opacity 2s;
+        opacity: 0;
+    }
+    .canvas.show {
+        opacity: 1;
     }
     .outer {
         display: flex;

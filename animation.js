@@ -78,6 +78,7 @@
         }
 
         start();
+        canvas.classList.add('show');
     }
 
     function start() {
